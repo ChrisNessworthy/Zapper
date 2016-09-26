@@ -74,8 +74,16 @@ public class BaseFragment extends ListFragment {
                     //Sleeps the thread for time specified in global variable
                     Thread.sleep(REFRESH_TIME);
 
-                    loadBaseObjectList();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadBaseObjectList();
+                        }
+                    });
+
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
